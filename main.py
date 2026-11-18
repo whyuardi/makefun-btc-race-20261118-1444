@@ -31,7 +31,9 @@ Mode A exits (measured from the entry decision close):
   - no fixed take-profit: a trailing stop arms once the close is 50 bps
     above the entry close, then trails 80 bps below the highest close
     since entry, so a real recovery is ridden instead of capped;
-  - stop loss 150 bps below the entry close;
+  - stop loss 125 bps below the entry close (tightened from 150 bps:
+    the sweep shows 125 and 150 give identical trades on every window
+    tested, so the tighter stop only caps the worst-case loss);
   - maximum hold 720 bars (12 hours);
   - 10-bar cooldown after any exit.
 
@@ -81,7 +83,10 @@ DROP_H = 75     # must be at least this far below the 120-bar high
 CONF = 20       # must be at least this far above the 120-bar low
 WIN = 15        # breakout window (bars)
 BRK = 12        # must break the window high by this much (bps)
-STOP_A = 150    # stop loss, bps below the entry decision close
+STOP_A = 125    # stop loss, bps below the entry decision close (tightened
+              # from 150: sweep8 shows 125 and 150 give identical trades
+              # on all four windows, so 125 caps the worst-case loss per
+              # trade at zero measured cost)
 ARM_A = 50      # trailing stop arms this far above the entry close (bps)
 TRAIL_A = 80    # trailing distance below the peak close since entry (bps)
 HOLD_A = 720    # maximum hold, bars
